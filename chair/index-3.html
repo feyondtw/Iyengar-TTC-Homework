@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Chair Practice Sequence · 椅子序列手冊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;500;600&family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5F1E8;
+    --paper:#FBF8F1;
+    --ink:#2F2A24;
+    --muted:#7C7468;
+    --line:rgba(47,42,36,0.14);
+    --line-soft:rgba(47,42,36,0.08);
+    /* category colours */
+    --c-stand:#EFD9CC;   --c-stand-ink:#9C6B4E;
+    --c-rot:#D6E0C7;     --c-rot-ink:#5E7148;
+    --c-bend:#EADBBC;    --c-bend-ink:#9A7C42;
+    --c-inv:#D6D9E6;     --c-inv-ink:#5C6291;
+    --c-back:#E3CFD4;    --c-back-ink:#8E5A67;
+    --c-base:#E4DFD3;    --c-base-ink:#85796A;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#E7E2D6;
+    font-family:'Inter','Noto Sans TC',system-ui,sans-serif;color:var(--ink);
+    -webkit-font-smoothing:antialiased}
+  .sheet{
+    width:1240px;margin:0 auto;padding:28px 0 48px;position:relative;
+    zoom:var(--fit,1);
+  }
+  /* ── Page frame (landscape A4 ratio, WYSIWYG) ── */
+  .page{
+    width:1240px;height:876px;background:var(--cream);
+    margin:0 auto 26px;padding:46px 52px;box-sizing:border-box;
+    box-shadow:0 14px 44px rgba(47,42,36,0.15);
+    display:flex;flex-direction:column;overflow:hidden;position:relative;
+    content-visibility:auto;contain-intrinsic-size:1240px 876px;
+  }
+  .page.pose{justify-content:flex-start}
+  .page .pageband{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;
+    border-bottom:1px solid var(--line);padding-bottom:14px}
+  .page .pageband .num{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--muted);font-weight:500}
+  .page .pageband .t{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:24px;font-weight:500}
+  .page .pageband .tc{font-family:'Noto Serif TC',serif;font-size:15px;color:var(--muted);letter-spacing:0.06em}
+  .page .pageband .rule{flex:1;height:1px;background:var(--line);align-self:center}
+  .page .pagefoot{margin-top:auto;padding-top:16px;display:flex;justify-content:space-between;
+    align-items:center;font-size:10px;color:var(--muted);letter-spacing:0.1em}
+  .page .pagefoot .brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:0.18em;color:var(--ink)}
+
+  /* ── Header ── */
+  .hd{display:flex;justify-content:space-between;align-items:flex-start;
+    border-bottom:1px solid var(--line);padding-bottom:26px;margin-bottom:8px}
+  .hd h1{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-weight:500;
+    font-size:46px;letter-spacing:-0.01em;margin:0;line-height:1.02}
+  .hd .sub{font-family:'Noto Serif TC',serif;font-size:19px;color:var(--muted);
+    margin-top:8px;letter-spacing:0.06em}
+  .hd .meta{text-align:right;font-size:12px;color:var(--muted);letter-spacing:0.04em;line-height:1.7}
+  .hd .meta b{color:var(--ink);font-weight:500}
+
+  .legend{display:flex;gap:22px;flex-wrap:wrap;margin:22px 0 4px}
+  .legend .it{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--muted);letter-spacing:0.03em}
+  .legend .dot{width:14px;height:14px;border-radius:50%;flex:none}
+  .legend .it b{color:var(--ink);font-weight:500;margin-right:2px}
+
+  .summary{display:flex;gap:14px;margin:24px 0 8px;flex-wrap:wrap}
+  .summary .stat{background:var(--paper);border:1px solid var(--line-soft);
+    border-radius:12px;padding:14px 22px;display:flex;align-items:baseline;gap:10px}
+  .summary .stat .n{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:500;line-height:1}
+  .summary .stat .l{font-size:12px;color:var(--muted);letter-spacing:0.1em}
+
+  /* ── Section ── */
+  .section{margin-top:42px}
+  .section-hd{display:flex;align-items:baseline;gap:16px;margin-bottom:22px}
+  .section-hd .num{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--muted);font-weight:500}
+  .section-hd .t{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:30px;font-weight:500;letter-spacing:-0.005em}
+  .section-hd .tc{font-family:'Noto Serif TC',serif;font-size:17px;color:var(--muted);letter-spacing:0.08em}
+  .section-hd .rule{flex:1;height:1px;background:var(--line);align-self:center}
+
+  /* ── Card grid ── */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{background:var(--paper);border:1px solid var(--line-soft);border-radius:14px;
+    overflow:hidden;display:flex;flex-direction:column}
+  .card.span-2{grid-column:span 2}
+  .card.span-3{grid-column:span 3}
+  .card.span-4{grid-column:span 4}
+  .card .photo{width:100%;background:#ECE6DA;position:relative;
+    overflow:hidden;display:grid;gap:4px}
+  .shot{position:relative;overflow:hidden;height:340px;background:#ECE6DA}
+  .shot .ph-img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;display:block}
+  .shot .ph-img.missing{display:none}
+  .shot .ph-img.loaded + .ph-empty{display:none}
+  .shot .ph-empty{position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:10px;text-align:center;padding:14px;
+    color:var(--muted)}
+  .shot .ph-empty svg{opacity:0.5}
+  .shot .ph-empty span{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:13px;line-height:1.3;opacity:0.8}
+  .shot .cap{position:absolute;left:8px;bottom:8px;background:rgba(47,42,36,0.62);
+    color:#F5F1E8;font-size:10.5px;padding:3px 9px;border-radius:999px;
+    letter-spacing:0.05em;font-family:'Noto Sans TC',sans-serif;z-index:2}
+  .card .body{padding:14px 15px 16px;display:flex;flex-direction:column;flex:1}
+  /* wide cards: text sits in a row, points flow in columns */
+  .card.wide .body{flex-direction:row;align-items:flex-start;gap:30px}
+  .card.wide .body .info{flex:none;width:300px}
+  .card.wide .body ul{margin:2px 0 0;display:grid;grid-auto-flow:column;
+    grid-template-rows:repeat(2,auto);gap:6px 28px;align-content:start}
+  .card .toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .card .ord{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--ink);line-height:1}
+  .chip{font-size:10.5px;letter-spacing:0.06em;padding:4px 10px;border-radius:999px;font-weight:500;white-space:nowrap}
+  .card .en{font-family:'Cormorant Garamond','Noto Serif TC',serif;font-size:17.5px;font-weight:600;
+    line-height:1.2;margin-bottom:3px;letter-spacing:-0.005em}
+  .card .tc{font-family:'Noto Serif TC',serif;font-size:13.5px;color:var(--muted);margin-bottom:11px;letter-spacing:0.04em}
+  .card ul{margin:auto 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+  .card li{font-size:11.5px;line-height:1.45;color:var(--ink);padding-left:13px;position:relative;letter-spacing:0.01em}
+  .card li::before{content:'';position:absolute;left:2px;top:6px;width:4px;height:4px;border-radius:50%;background:var(--muted)}
+  .card .pt-en{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;
+    font-size:13px;color:var(--ink);letter-spacing:0.005em;line-height:1.3}
+  .card .pt-tc{display:block;font-family:'Noto Serif TC',serif;
+    font-size:10.5px;color:var(--muted);letter-spacing:0.02em;margin-top:1px}
+  .card .note{margin-top:13px;padding:11px 13px;background:rgba(94,113,72,0.07);
+    border-left:2px solid var(--c-rot-ink);border-radius:0 8px 8px 0}
+  .card .note-en{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:12.5px;line-height:1.45;color:var(--ink);letter-spacing:0.005em}
+  .card .note-tc{display:block;font-family:'Noto Serif TC',serif;font-size:10.5px;
+    line-height:1.5;color:var(--muted);margin-top:5px;letter-spacing:0.02em}
+
+  /* category accents */
+  .cat-stand .chip{background:var(--c-stand);color:var(--c-stand-ink)}
+  .cat-rot   .chip{background:var(--c-rot);color:var(--c-rot-ink)}
+  .cat-bend  .chip{background:var(--c-bend);color:var(--c-bend-ink)}
+  .cat-inv   .chip{background:var(--c-inv);color:var(--c-inv-ink)}
+  .cat-base  .chip{background:var(--c-base);color:var(--c-base-ink)}
+  .cat-back  .chip{background:var(--c-back);color:var(--c-back-ink)}
+  .cat-stand .photo{background:linear-gradient(180deg,#F4E6DC,#EAD7C9)}
+  .cat-rot   .photo{background:linear-gradient(180deg,#E4ECD6,#D6E0C7)}
+  .cat-bend  .photo{background:linear-gradient(180deg,#F1E6CB,#E6D6B4)}
+  .cat-inv   .photo{background:linear-gradient(180deg,#E3E5EE,#D4D8E6)}
+  .cat-base  .photo{background:linear-gradient(180deg,#EDE8DC,#E0DACE)}
+  .cat-back  .photo{background:linear-gradient(180deg,#EFDCE1,#E0C9CF)}
+  .photo.nophoto{display:flex;align-items:center;justify-content:center}
+  .restline{text-align:center;opacity:.55}
+  .restline .rest-en{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;letter-spacing:.06em;color:#6b6152}
+  .restline .rest-tc{display:block;margin-top:10px;font-family:'Noto Serif TC',serif;font-size:17px;letter-spacing:.22em;color:#8a7f6d}
+
+  /* ── Flow overview ── */
+  .flow{margin-top:48px;border-top:1px solid var(--line);padding-top:30px}
+  .flow .lbl{font-family:'Noto Serif TC',serif;font-size:15px;color:var(--muted);letter-spacing:0.1em;margin-bottom:18px}
+  .flowrow{display:flex;flex-wrap:wrap;gap:7px 8px;align-items:center}
+  .fchip{font-size:11px;padding:7px 11px;border-radius:8px;font-weight:500;letter-spacing:0.02em;line-height:1.1;display:flex;align-items:center;gap:7px}
+  .fchip .fn{font-family:'Cormorant Garamond',serif;font-size:14px;opacity:0.6;align-self:flex-start;margin-top:1px}
+  .fchip-txt{display:flex;flex-direction:column;gap:1px}
+  .fchip-en{font-family:'Cormorant Garamond',serif;font-size:12.5px;font-weight:600;letter-spacing:0;line-height:1.15}
+  .fchip-tc{font-family:'Noto Serif TC',serif;font-size:9.5px;opacity:0.62;letter-spacing:0.04em;line-height:1.2}
+  .farrow{color:var(--muted);font-size:13px;opacity:0.55}
+
+  .foot{margin-top:40px;border-top:1px solid var(--line-soft);padding-top:18px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11px;color:var(--muted);letter-spacing:0.08em}
+  .foot .brand{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:0.18em;color:var(--ink)}
+
+  .hint{max-width:1440px;margin:0 auto 4px;padding:14px 22px;background:#fff;border-radius:12px;
+    font-size:12.5px;color:var(--muted);line-height:1.6;border:1px solid var(--line-soft)}
+  .hint b{color:var(--ink)}
+
+  /* ── Pose-page internals ── */
+  .page .photo{margin-bottom:18px;border-radius:12px;background:transparent;
+    display:grid;gap:4px;overflow:hidden;position:relative;
+    flex:1 1 auto;min-height:0;grid-auto-rows:1fr}
+  .page .photo .shot{height:auto;min-height:0}
+  .page .poseinfo{display:flex;gap:30px;align-items:flex-start;flex:0 0 auto}
+  .page .poseinfo ul{display:grid;grid-template-columns:repeat(3,1fr);gap:9px 26px;
+    flex:1;margin:0;padding:0;list-style:none}
+  .page .poseinfo li{font-size:13px;line-height:1.4;color:var(--ink);padding-left:14px;position:relative}
+  .page .poseinfo li::before{content:'';position:absolute;left:2px;top:7px;width:5px;height:5px;border-radius:50%;background:var(--muted)}
+  .page .poseinfo .pt-en{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:14.5px;color:var(--ink);line-height:1.25}
+  .page .poseinfo .pt-tc{display:block;font-family:'Noto Serif TC',serif;font-size:11.5px;color:var(--muted);margin-top:1px;letter-spacing:0.02em}
+  .page .poseinfo .note{flex:0 1 600px;padding:12px 15px;background:rgba(94,113,72,0.07);
+    border-left:2px solid var(--c-rot-ink);border-radius:0 8px 8px 0}
+  .page .poseinfo .note-en{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;line-height:1.5;color:var(--ink)}
+  .page .poseinfo .note-tc{display:block;font-family:'Noto Serif TC',serif;font-size:11.5px;line-height:1.55;color:var(--muted);margin-top:6px}
+  .page .pageband .chip{align-self:center}
+
+  @media print{
+    html,body{background:#fff}
+    .hint{display:none}
+    .sheet{width:100%;margin:0;padding:0;zoom:1}
+    @page{size:1240px 876px;margin:0}
+    .page{width:1240px;height:876px;min-height:876px;margin:0;box-shadow:none;
+      content-visibility:visible;contain-intrinsic-size:auto;
+      padding:7mm 9mm;break-after:page;page-break-after:always;
+      break-inside:avoid;page-break-inside:avoid}
+    .page:last-child{break-after:auto;page-break-after:auto}
+  }
+</style>
+<body>
+
+<div class="sheet">
+
+  <div class="page cover">
+    <div class="hd">
+      <div>
+        <h1>Chair Practice Sequence</h1>
+        <div class="sub">椅子自我練習序列 · 以折疊椅為主要輔具</div>
+      </div>
+      <div class="meta">
+        MUYOGA · DHYANA<br/>
+        <b>0915 Home Work</b> · Chair Self-Practice<br/>
+        Folding Chair &amp; Props
+      </div>
+    </div>
+
+    <div class="legend" id="legend"></div>
+
+    <div class="summary" id="summary"></div>
+
+    <div class="flow">
+      <div class="lbl">序列流動 · Sequence Flow</div>
+      <div class="flowrow" id="flowrow"></div>
+    </div>
+
+    <div class="foot">
+      <span>靜下來，回到根本。</span>
+      <span class="brand">MUYOGA</span>
+      <span>© 2026 DHYANA · Iyengar Yoga</span>
+    </div>
+  </div>
+
+  <div id="pages"></div>
+
+</div>
+
+<script>
+  const CAT = {
+    stand: { cls:'cat-stand', label:'站姿 Standing', dot:'#EFD9CC' },
+    rot:   { cls:'cat-rot',   label:'扭轉 Rotation', dot:'#D6E0C7' },
+    bend:  { cls:'cat-bend',  label:'前彎 Forward Bend', dot:'#EADBBC' },
+    back:  { cls:'cat-back',  label:'後彎 Back Bend', dot:'#E3CFD4' },
+    inv:   { cls:'cat-inv',   label:'倒立 Inversion', dot:'#D6D9E6' },
+    base:  { cls:'cat-base',  label:'準備 / 坐姿 / 收攝', dot:'#E4DFD3' },
+  };
+
+  // ── Pose data ──  pts / note format: "中文|English"
+  const SECTIONS = [
+    {
+      num:'一', t:'Standing with Chair', tc:'椅子站姿',
+      poses:[
+        { id:'c01', num:'1', cat:'stand', tag:'Standing I',
+          en:'Tadasana (feet at chair legs)', tc:'山式（腳踩椅腳，腳跟在地）',
+          shots:['Feet detail · 腳部細節','Front · 正面','Side (other) · 側面（另一側）','Side · 側面'],
+          note:'The chair legs give the feet a fixed reference: toes press the front legs while the heels stay grounded, so the arches lift and the weight spreads evenly through both feet.|以椅腳作為雙腳的固定參考：前腳掌抵住椅腳、腳跟踩實地面，足弓自然上提，重量平均分布於雙足。',
+          pts:['建立雙腳與地面的關係|Establish the feet–floor connection',
+               '足弓上提、腳跟踩實|Lift the arches, ground the heels',
+               '骨盆中立、脊椎延伸|Neutral pelvis, extended spine'] },
+
+        { id:'c02', num:'1.1', cat:'stand', tag:'Standing I · 手臂延伸',
+          en:'Urdhva Baddhanguliyasana in Tadasana', tc:'山式手指交扣上舉',
+          shots:['Side · 側面','Side (other) · 側面（另一側）'],
+          note:'With the feet fixed by the chair, the arms can lift without the ribs shifting forward. Interlock the fingers, turn the palms up and extend from the waist through the little-finger edge.|雙腳被椅腳固定後，手臂上舉時肋骨不易前推。十指交扣、掌心朝上，從腰側沿小指側向上延伸。',
+          pts:['向上延展身側與腋窩|Lengthen the side body & armpits',
+               '打開肩關節與胸腔|Open the shoulders & chest',
+               '手臂上舉而肋骨不前推|Lift the arms without pushing the ribs'] },
+
+        { id:'c03', num:'2', cat:'bend', tag:'Forward Bend I · 地板 → 加磚',
+          en:'Adho Mukha Virasana (palms on the chair — floor, then block)', tc:'面朝下英雄式（手掌推椅 — 頭在地板，再加磚）',
+          shots:['① On the floor · 地板 1','① On the floor · 地板 2','① On the floor · 地板 3','① On the floor · 地板 4','② On a block · 加磚 1','② On a block · 加磚 2','② Block detail · 加磚細節'],
+          note:'The palms press the chair seat while the hips settle back to the heels, so the arms and trunk pull in opposite directions and the forehead rests on the floor. Working this way it became clear the back was not staying long enough — so a block was added under the forehead: raising the support lets the spine keep its length and the chest stay broad, with the block height chosen so the neck stays level and never compressed.|手掌推住椅面、臀部沉向腳跟，手臂與軀幹形成反向拉長，前額落在地板上。如此練習後發現背部無法保持足夠的延長——因此在額下加了瑜伽磚：墊高支撐讓脊椎維持長度、胸腔保持開闊，磚的高度以頸部保持水平、不受壓迫為準。',
+          pts:['手推椅面、臀沉腳跟，脊椎雙向延伸|Press the chair, sit back — spine extends both ways',
+               '背部無法延長時，以磚墊高額頭|When the back rounds, raise the forehead on a block',
+               '額頭落實、頸椎不壓迫，停留久一些|Forehead grounded, neck free — stay longer'] },
+
+        { id:'c05', num:'3', cat:'bend', tag:'Forward Bend II · 手觸椅腳',
+          en:'Adho Mukha Svanasana (hands touching the chair)', tc:'下犬式（雙手觸椅）',
+          shots:['Side · 側面','Side (other) · 側面（另一側）'],
+          note:'The hands rest against the chair legs instead of the floor, giving the arms a fixed point to press away from. The heels stay down and the sitting bones lift, so the whole back of the body lengthens.|雙手抵住椅腳而非地板，手臂有了固定的推力點。腳跟踩地、坐骨上提，整個身體背側因此得以延長。',
+          pts:['手推椅腳，肩胛外展、腋窩上提|Press the chair legs — spread the blades, lift the armpits',
+               '坐骨上提、大腿後側延展|Lift the sitting bones, lengthen the hamstrings',
+               '頸部放鬆、頭自然垂落|Neck released, head hanging freely'] },
+
+        { id:'c06', num:'3.1', cat:'bend', tag:'Forward Bend II · 髖靠椅面',
+          en:'Adho Mukha Svanasana (hips supported on the chair, hands on blocks)', tc:'下犬式（髖部靠椅、雙手放磚）',
+          shots:['Side · 側面','Side (other) · 側面（另一側）'],
+          note:'The folded blanket over the chair back supports the front of the hips while the hands press two blocks. The chair takes the weight of the pelvis, so the spine can be drawn long without the strain of holding oneself up — a resting variation for tight hamstrings or a tired back.|椅背上折疊的毯子支撐髖部前側，雙手推兩塊磚。椅子承接骨盆的重量，脊椎得以被拉長而不需費力支撐自己——適合大腿後側緊繃或背部疲累時的休息變化式。',
+          pts:['椅面承接骨盆，脊椎被動延長|Chair supports the pelvis, spine lengthens passively',
+               '雙手推磚，胸腔往前開展|Press the blocks, open the chest forward',
+               '可停留較長時間，作為修復式練習|Stay longer — a restorative variation'] },
+
+        { id:'c07', num:'4', cat:'stand', tag:'Standing II–III · 單腿上提',
+          en:'Utthita Hasta Padangusthasana I &amp; II (with chair &amp; belt)', tc:'手抓腳趾單腿站立式 I 與 II（椅子與伸展帶）',
+          shots:['① UHP I · 前方上提 側面','① UHP I · 前方上提 正面','① UHP I · 前方上提 側面（另一側）','② Urdhva Baddhanguliyasana in Tadasana · 山式手指交扣上舉 側面 1','② Urdhva Baddhanguliyasana in Tadasana · 山式手指交扣上舉 側面 2','③ UHP II · 側向開展 側面','③ UHP II · 側向開展 正面','③ UHP II · 側向開展 側面（另一側）'],
+          note:'The same standing balance in two directions. ① In UHP I the raised heel rests on a blanket-padded chair back so the leg is held at a workable height, the back stays against the wall and both arms lift overhead — the standing leg roots down while the lifted leg extends forward. ② In UHP II the same supported leg opens out to the side, a belt around the foot letting the arm stay long; the chair keeps the height while both hip points must continue facing front so the trunk does not turn with the leg.|同一個站立平衡的兩個方向。① UHP I 中，上提的腳跟靠在墊了毯子的椅背上，讓腿被支撐在可運作的高度，背部貼牆、雙臂上舉——站立腿向下扎根，上提腿向前延伸。② UHP II 中，同一條被支撐的腿向側邊開展，伸展帶繞過腳掌讓手臂保持延長；椅子維持高度，而兩側髖點必須持續朝前，軀幹不隨腿旋轉。',
+          pts:['① 椅背支撐抬腿，背貼牆、軀幹直立|① Chair supports the leg — back to the wall, trunk upright',
+               '② 腿向側開展，伸展帶助手臂延長|② Leg opens to the side — belt keeps the arm long',
+               '兩側髖點朝前，站立腿踩實、上提腿伸直|Hip points face front; root the standing leg, extend the raised leg'] },
+
+        { id:'c09', num:'5', cat:'stand', tag:'Standing IV · 三角式',
+          en:'Utthita Trikonasana (with chair)', tc:'三角伸展式（椅子輔助）',
+          shots:['Side · 側面 1','Side · 側面 2','Side (other) · 側面（另一側）1','Side (other) · 側面（另一側）2'],
+          note:'The chair stands beside the front leg so the lower hand can hold the chair leg or seat instead of reaching all the way to the floor. With the support, the trunk can turn and open upward without the waist collapsing — the top arm extends freely and the chest rotates toward the ceiling.|椅子立於前腿旁，下方手可握椅腳或椅面，不必勉強伸到地板。有了支撐，軀幹能夠旋轉向上開展而腰側不塌——上方手臂自由延伸，胸腔轉向天花板。',
+          pts:['下手握椅，軀幹不塌、可充分旋轉|Hold the chair — trunk turns fully without collapsing',
+               '雙腿伸直踩實，後腳外緣抵牆|Legs straight and grounded, back foot to the wall',
+               '胸腔向上旋轉，上臂延伸開展|Rotate the chest up, extend the top arm'] },
+
+        { id:'c10', num:'6', cat:'stand', tag:'Standing V · 側前伸展',
+          en:'Parsvottanasana (chair to ensure alignment)', tc:'側邊前彎伸展式（以椅確認對位）',
+          shots:['① Chair at the groins · 椅抵髖正位 1','① Chair at the groins · 椅抵髖正位 2','② Side extension · 側身延伸 1','② Side extension · 側身延伸 2'],
+          note:'First the chair is tilted against the front groins so one can check that the pelvis is sufficiently rotated and both groins stay at an even height — the hands run down the chair legs onto blocks at the wall. Only once that alignment is set does the trunk extend out along the chair back, the arms reaching forward and the side body lengthening into one horizontal line — this second stage is the direct preparation for Virabhadrasana III.|先將椅子傾斜抵住前側鼠蹊，確認骨盆已充分旋轉、兩側鼠蹊等高——雙手順著椅腳落在靠牆的磚上。待正位建立之後，軀幹才沿椅背向前延伸，雙臂前伸、側身拉長成一條水平線——第二階段正是 Virabhadrasana III 的直接準備。',
+          pts:['① 先以椅抵前鼠蹊，確認骨盆充分旋轉|① Chair at the front groins first — check the pelvic rotation',
+               '兩側鼠蹊等高，不讓一邊塌下|Keep the groins level — neither side drops',
+               '② 正位後再側身延伸，為 Vira III 做準備|② Then extend the side body — preparation for Vira III'] },
+
+        { id:'c11', num:'7', cat:'stand', tag:'Standing VI · 戰士式 I',
+          en:'Virabhadrasana I — sitting on the chair &amp; knee to the chair', tc:'戰士式 I — 坐於椅面 與 膝頂椅子',
+          shots:['① Sitting on the chair · 坐於椅面 側面','① Sitting on the chair · 坐於椅面 正面','① Sitting on the chair · 坐於椅面 側面（另一側）','② Knee to the chair · 膝頂椅子 側面','② Knee to the chair · 膝頂椅子 正面','② Knee to the chair · 膝頂椅子 側面 1','② Knee to the chair · 膝頂椅子 側面 2'],
+          note:'Two stages of the same pose. ① Sitting astride the chair takes the weight of the pelvis, so the front thigh does not have to hold the pose — the back leg can extend fully to the wall and both groins open evenly, useful for learning the depth of the lunge without fatigue. ② With only the knee or front thigh pressing the chair, the legs carry the pose while the chair marks the correct depth and keeps the pelvis level; the arms then extend overhead and the chest lifts into the full pose.|同一體式的兩個階段。① 跨坐於椅面讓骨盆的重量被承接，前側大腿不需承擔整個姿勢——後腿能完全向牆延伸、兩側鼠蹊平均開展，適合在不疲累的狀態下學習弓箭步的深度。② 僅以膝或前側大腿頂住椅子時，雙腿承擔姿勢，而椅子標示出正確的深度並維持骨盆水平；雙臂隨之向上延伸、胸腔上提，進入完整的體式。',
+          pts:['① 椅面承接骨盆，前腿不過度負重|① Chair carries the pelvis — front leg not overloaded',
+               '② 膝頂椅面標示弓箭步深度，骨盆保持水平|② Knee to the chair marks the lunge depth — pelvis level',
+               '後腿向牆完全延伸，雙臂上舉、肋骨不前推|Back leg extends to the wall; arms overhead, ribs stay in'] },
+
+        { id:'c13', num:'8', cat:'stand', tag:'Standing VII · 平衡',
+          en:'Virabhadrasana III (raised foot to the wall, hands on the chair)', tc:'戰士式 III（腳抵牆、雙手扶椅）',
+          shots:['Side · 側面','Side (other) · 側面（另一側）'],
+          note:'The raised heel presses into the wall and the hands reach to the chair back, so the body is supported at both ends and can find a true horizontal line. The standing leg stays vertical while the trunk, arms and lifted leg extend into one plane parallel to the floor.|上提的腳跟推向牆面、雙手延伸至椅背，身體兩端都有支撐，因而能找到真正的水平線。站立腿保持垂直，軀幹、手臂與上提腿延伸成與地板平行的同一平面。',
+          pts:['腳抵牆、手扶椅，兩端支撐找水平|Foot to wall, hands to chair — support at both ends',
+               '站立腿垂直，髖部不外翻|Standing leg vertical, hip does not open out',
+               '軀幹與抬腿成一直線，向兩端延伸|Trunk and raised leg in one line, extend both ways'] },
+
+        { id:'c14', num:'9', cat:'rot', tag:'Rotation · 側身延展',
+          en:'Parighasana (gate pose, foot to the wall)', tc:'門栓式（腳抵牆、膝下墊毯）',
+          shots:['Side · 側面 1','Side (other) · 側面（另一側）','Side · 側面 2'],
+          note:'The kneeling knee is padded with a folded blanket and the extended foot presses a rolled blanket at the wall, giving the straight leg a firm resistance. From that stable base the trunk bends sideways and the top arm sweeps overhead — the side ribs open without the pelvis twisting.|跪地的膝蓋以折疊毯墊高，伸直腿的腳掌推住靠牆的捲毯，讓直腿有紮實的反作用力。從這個穩定的基礎，軀幹向側邊彎曲、上方手臂向頭頂延伸——側邊肋骨打開而骨盆不隨之扭轉。',
+          pts:['膝下墊毯，腳抵牆卷毯取得支撐|Pad the knee, press the rolled blanket at the wall',
+               '骨盆保持朝前，不隨上身扭轉|Pelvis stays facing front, no twisting',
+               '上方手臂過頭延伸，側肋充分打開|Top arm sweeps overhead, side ribs open'] },
+
+        { id:'c15', num:'10', cat:'bend', tag:'Forward Bend · 坐姿寬腿',
+          en:'Upavistha Konasana (belts on both feet, seated on a folded blanket)', tc:'坐角式（雙腳套帶、坐骨墊毯）',
+          shots:['Side · 側面 1','Side · 側面 2','Front · 正面'],
+          note:'Sitting on a folded blanket lifts the sitting bones so the lower back can stay upright rather than collapsing. A belt is looped around each foot: pulling on them draws the legs back and awakens the thigh muscles, while the trunk lengthens and turns from the waist to correct the alignment of each side.|坐骨下墊折疊毯，讓下背能保持直立而不塌陷。雙腳各套一條帶子：拉帶使雙腿向後收、喚醒大腿肌肉，同時軀幹向上延伸並自腰部旋轉，校正兩側的正位。',
+          pts:['拉帶收腿，強化腿力|Pull the belts to draw the legs back — strengthen the legs',
+               '軀幹向上延伸，側身拉長|Lengthen the trunk, extend the side body',
+               '自腰部旋轉，扭轉中找正位|Turn from the waist — find alignment in the rotation'] },
+
+        { id:'c16', num:'10.1', cat:'rot', tag:'Rotation I · 坐姿旋轉',
+          en:'Parivrtta Upavistha Konasana (belt on the foot)', tc:'扭轉坐角式（腳套帶）',
+          shots:['Side · 側面 1','Side · 側面 2','Side (other) · 側面（另一側）1','Side (other) · 側面（另一側）2'],
+          note:'From the wide-leg seat the trunk turns and extends along one leg, the lower arm reaching inside the thigh while the upper hand catches a belt looped on the foot. The belt lets the top shoulder roll back and the chest turn upward, so the pose becomes a rotation of the whole spine rather than a sideways collapse.|由寬腿坐姿旋轉軀幹，沿一腿延伸，下方手臂伸入大腿內側，上方手握住套在腳上的帶子。帶子讓上方肩膀向後轉、胸腔轉向上方，使這個體式成為整條脊椎的旋轉，而非側向的塌陷。',
+          pts:['腳套帶，上方手拉帶助肩轉開|Belt on the foot — top hand pulls, shoulder rolls back',
+               '胸腔轉向上方，脊椎完整旋轉|Chest turns up, whole spine rotates',
+               '雙腿保持伸直踩地，骨盆不移位|Legs stay straight and grounded, pelvis steady'] },
+
+        { id:'c16b', num:'11', cat:'rot', tag:'Rotation II · 坐姿扭轉',
+          en:'Marichyasana III (sitting on blocks, hand on a block)', tc:'馬里奇式 III（坐磚、後手撐磚）',
+          shots:['① Marichyasana III · 馬里奇式 III 側面','② Marichyasana III · 馬里奇式 III 背面','③ Marichyasana III · 馬里奇式 III 背側面','④ Marichyasana III · 馬里奇式 III 正側面','⑤ Marichyasana III · 馬里奇式 III 背面（另一側）','⑥ Marichyasana III · 馬里奇式 III 背側面（另一側）'],
+          note:'Sitting on a block lifts the pelvis so the spine can stay vertical before the twist begins, and a second block under the back hand lets the trunk lift rather than lean. One leg extends straight along the floor while the other knee bends with the foot flat beside it; the opposite upper arm crosses outside the bent knee and the chest turns from the bottom of the spine upward, the shoulders staying level.|坐在磚上抬高骨盆，使脊椎在旋轉開始前保持垂直；後手下方的第二塊磚讓軀幹上提而非傾倒。一腿沿地板伸直，另一腿屈膝腳掌踩地；對側上臂跨到屈膝外側，胸腔自脊椎底端向上旋轉，雙肩保持等高。',
+          pts:['坐磚抬高骨盆，脊椎先垂直再旋轉|Block lifts the pelvis — spine vertical before turning',
+               '後手撐磚使軀幹上提，不向後傾倒|Back hand on a block — trunk lifts, does not lean',
+               '上臂跨屈膝外側，雙肩等高、自下段脊椎旋轉|Upper arm outside the bent knee — shoulders level, turn from the base'] },
+
+        { id:'c17', num:'12', cat:'inv', tag:'Inversion I · 頭倒立 → 單腿',
+          en:'Salamba Sirsasana into Eka Pada Sirsasana (at the rope wall)', tc:'頭倒立進入單腿頭倒立（靠繩牆）',
+          shots:['① Salamba Sirsasana · 頭倒立 正面','② Eka Pada · 單腿 正面 1','② Eka Pada · 單腿 側面','② Eka Pada · 單腿 正面 2','② Eka Pada · 單腿 正面 3','② Eka Pada · 單腿 正面 4'],
+          note:'Set up close to the rope wall with a folded blanket under the head and the forearms as a firm base — the wall gives the heels a reference so the legs extend straight up and the shoulders lift away from the ears. From that stable Salamba Sirsasana one leg then lowers forward while the other stays vertical: the pelvis must not tip and the lifted leg keeps its full extension, so the abdomen and the base work harder.|靠近繩牆架設，頭下墊折疊毯，前臂為穩固基座——牆面給腳跟參考，使雙腿向上伸直、肩膀離開耳朵。由這個穩定的 Salamba Sirsasana，再將一腿向前下放、另一腿保持垂直：骨盆不可傾斜，上提腿維持完全延伸，因此腹部與基座需更用力。',
+          pts:['前臂為基座，肩膀遠離耳朵、頸部不受壓|Forearms are the base — shoulders lift, neck free',
+               '先穩定雙腿垂直，再單腿向前下放|Stabilise both legs vertical, then lower one leg forward',
+               '骨盆保持水平，兩腿皆完全伸直|Pelvis stays level, both legs fully extended'] },
+
+        { id:'c18', num:'13', cat:'bend', tag:'Forward Bend · 倒立後緩解',
+          en:'Adho Mukha Virasana &amp; Padangusthasana (counter-poses after the inversion)', tc:'面朝下英雄式 與 手抓大腳趾前彎式（倒立後緩解）',
+          shots:['① Adho Mukha Virasana · 面朝下英雄式 側面','② Padangusthasana · 手抓大腳趾前彎式 側面'],
+          note:'Two counter-poses taken straight after the headstand to release the neck and shoulders. First kneel with the knees apart and the arms stretched forward, the forehead resting down so the spine lengthens in two directions and the breath settles. Then stand with the feet hip-width, catch the big toes and fold down with the legs straight — the head hangs freely so the neck keeps releasing while the backs of the legs extend.|倒立之後緊接的兩個緩解體式，用以放鬆頸部與肩膀。先膝蓋分開跪坐、雙臂向前伸展，額頭落下使脊椎向兩端延長、呼吸沉澱。接著雙腳與髖同寬站立，雙手抓住大腳趾、雙腿伸直向下折疊——頭部自然垂放讓頸部持續放鬆，同時腿後側得到延展。',
+          pts:['① 額頭落地，頸部完全放鬆、呼吸沉澱|① Forehead down — neck releases, breath settles',
+               '① 坐骨向後、胸腔向前，脊椎兩端延長|① Sit bones back, chest forward — spine lengthens both ways',
+               '② 雙腿伸直、自髖折下，頭部自然垂放|② Legs straight, fold from the hips, head hangs freely'] },
+
+        { id:'c20', num:'14', cat:'back', tag:'Back Bend · 倒立準備',
+          en:'Chatushpadasana (bolster under the feet)', tc:'四足式（腳下墊長枕）',
+          shots:['Side · 側面','Side (other) · 側面（另一側）'],
+          note:'Lying on folded blankets with the shoulders supported, the feet press a bolster and the hands catch the ankles. The chest lifts toward the chin while the neck stays long — this opens the upper back and prepares the shoulders for the full shoulderstand.|躺在折疊毯上讓肩膀被支撐，雙腳推住長枕、雙手抓住腳踝。胸腔向下巴上提而頸部保持延長——這打開上背並為完整的肩立式準備肩膀。',
+          pts:['肩下墊毯，頸部保持延長不受壓|Blankets under the shoulders — neck long, not compressed',
+               '雙手抓腳踝，胸腔向上提起|Hands catch the ankles, chest lifts',
+               '腳推長枕，大腿平行、膝不外開|Feet press the bolster, thighs parallel'] },
+
+        { id:'c21', num:'15', cat:'inv', tag:'Inversion II · 肩立式循環（上）',
+          en:'Salamba Sarvangasana cycle I — Salamba · Eka Pada · Parsvaika Pada', tc:'肩立式循環（上）— 肩立式 · 單腿 · 側單腿',
+          shots:['① Salamba Sarvangasana · 肩立式 側面','① Salamba Sarvangasana · 肩立式 側面（另一側）','① Salamba Sarvangasana · 肩立式 正面','② Eka Pada Sarvangasana · 單腿肩立式 正面','② Eka Pada Sarvangasana · 單腿肩立式 正面（另一側）','③ Eka Pada Sarvangasana · 單腿肩立式 側面 1','③ Eka Pada Sarvangasana · 單腿肩立式 側面 2','④ Parsvaika Pada Sarvangasana · 側單腿肩立式 正面 1','④ Parsvaika Pada Sarvangasana · 側單腿肩立式 正面 1（另一側）'],
+          note:'The first half of the cycle, all held on the same blanket set-up. From the vertical Salamba Sarvangasana — weight on the shoulders and upper arms, never the neck — one leg lowers toward the floor in Eka Pada while the supporting hands keep the trunk lifted so the pelvis does not drop. The leg then travels out to the side in Parsvaika Pada, where the pelvis and lower back must resist the sideways pull and both hips stay level.|循環的前半段，皆在同一組毯上完成。自垂直的 Salamba Sarvangasana 開始——重量落在肩膀與上臂，絕不在頸部——先一腿向地板下放成單腿式，支撐的雙手須維持軀幹上提使骨盆不掉落。接著腿走向側邊成側單腿式，骨盆與下背必須抵抗側向的拉力，兩側髖保持等高。',
+          pts:['① 重量在肩與上臂，頸椎全程不受壓|① Weight on shoulders and upper arms — neck free throughout',
+               '② 雙手撐背、手肘內收，胸腔向下巴開展|② Hands support the back, elbows in — chest opens to the chin',
+               '③④ 下放腿時軀幹不掉落、兩髖等高|③④ Trunk stays lifted as the leg lowers — hips level'] },
+
+        { id:'c21b', num:'15.1', cat:'inv', tag:'Inversion II · 肩立式循環（下）',
+          en:'Salamba Sarvangasana cycle II — Halasana · Parsva Halasana · Karnapidasana', tc:'肩立式循環（下）— 犁式 · 側犁式 · 膝夾耳式',
+          shots:['⑤ Halasana · 犁式 側面 1','⑤ Halasana · 犁式 側面 2','⑥ Parsva Halasana · 側犁式 側面','⑥ Parsva Karnapidasana · 側膝夾耳式 側面','⑦ Parsvaika Halasana · 側犁式 正面 1（另一側）','⑦ Parsvaika Halasana · 側犁式 側面 1（另一側）','⑦ Parsvaika Halasana · 側犁式 側面 2（另一側）','⑦ Parsva Karnapidasana · 側膝夾耳式 側面（另一側）','⑧ Parsva Halasana in Karnapidasana · 側犁式膝夾耳 正面','⑨ Parsva Halasana · 側犁式 正面 1','⑨ Parsva Halasana · 側犁式 正面 2'],
+          note:'The second half closes the cycle. Both legs lower over the head into Halasana — legs straight and active while the trunk keeps lifting away from the floor. The feet then walk round to one side for the rotation of Parsva Halasana, the shoulders staying square on the blankets while the waist turns, and the knees bend down beside the ears in Karnapidasana. The cycle ends by carrying that rotation into the folded pose — Parsva Halasana in Karnapidasana — where the back releases completely and the breath settles.|後半段收束整個循環。雙腿越過頭頂下放成犁式——雙腿伸直有力，軀幹持續離開地板上提。雙腳走向一側完成側犁式的旋轉，肩膀在毯上保持方正、僅由腰部轉動，再將膝蓋彎曲落在耳朵兩側成膝夾耳式。最後把這個旋轉帶入折疊的體式——側犁式膝夾耳——背部完全放鬆、呼吸沉澱。',
+          pts:['⑤ 雙腿伸直、腳趾踩地，軀幹持續上提|⑤ Legs straight, toes down — trunk keeps lifting',
+               '⑥⑦ 肩膀在毯上保持方正，僅腰部旋轉|⑥⑦ Shoulders stay square — the turn comes from the waist',
+               '⑧⑨ 膝落耳側，背部完全放鬆、呼吸放慢|⑧⑨ Knees beside the ears — back releases, breath slows'] },
+
+        { id:'c99', num:'16', cat:'base', tag:'Savasana · 收攝',
+          en:'Savasana', tc:'攤屍式',
+          shots:[],
+          note:'The sequence closes lying flat on the back, arms a little away from the body and palms turned up. Let the whole body become heavy and the breath return to its own rhythm — this is where the work of the practice is absorbed. Stay 5–10 minutes.|序列最後仰躺於地，雙臂稍離身體、掌心朝上。讓全身變得沉重、呼吸回到自己的節奏——練習的作用在此被吸收。停留 5–10 分鐘。',
+          pts:['仰躺放鬆，雙臂稍離身體、掌心朝上|Lie flat, arms slightly away, palms up',
+               '全身鬆沉，不再主動用力|Let the whole body become heavy — no effort',
+               '停留 5–10 分鐘，呼吸自然|Stay 5–10 minutes, breathe naturally'] },
+      ]
+    },
+  ];
+
+  // ── Legend ──
+  const legendEl = document.getElementById('legend');
+  Object.values(CAT).forEach(c=>{
+    const it=document.createElement('div'); it.className='it';
+    it.innerHTML=`<span class="dot" style="background:${c.dot}"></span>${c.label}`;
+    legendEl.appendChild(it);
+  });
+
+  // ── Summary stats (auto-counted) ──
+  const allPoses = SECTIONS.flatMap(s=>s.poses);
+  const LBL = { stand:'STANDING · 站姿', rot:'ROTATION · 扭轉', bend:'FORWARD BEND · 前彎',
+                back:'BACK BEND · 後彎', inv:'INVERSION · 倒立', base:'PREP / SEATED · 準備坐姿' };
+  const counts = {};
+  allPoses.forEach(p=>counts[p.cat]=(counts[p.cat]||0)+1);
+  const sumEl=document.getElementById('summary');
+  Object.keys(CAT).forEach(k=>{
+    if(!counts[k]) return;
+    const d=document.createElement('div'); d.className='stat';
+    d.innerHTML=`<span class="n">${counts[k]}</span><span class="l">${LBL[k]}</span>`;
+    sumEl.appendChild(d);
+  });
+  const tot=document.createElement('div'); tot.className='stat';
+  tot.innerHTML=`<span class="n">${allPoses.length}</span><span class="l">TOTAL · 全序列</span>`;
+  sumEl.appendChild(tot);
+
+  // ── Pose pages (one pose = one page) ──
+  const pagesEl = document.getElementById('pages');
+  let poseIndex = 0;
+  const TOTAL = allPoses.length;
+  SECTIONS.forEach(sec=>{
+    sec.poses.forEach(p=>{
+      poseIndex++;
+      const cat=CAT[p.cat];
+      const caps = Array.isArray(p.shots) ? p.shots : null;
+      const n = caps ? caps.length : (p.shots||1);
+      const rowCap = n<=4 ? 1 : (n<=12 ? 2 : 3);
+      const perRow = Math.max(1, Math.ceil(n/rowCap));
+      const rows = Math.ceil(n/perRow);
+      const slots=[];
+      for(let k=0;k<n;k++){
+        const sid = k===0 ? p.id : `${p.id}-${k}`;
+        const ph = n>1 ? `${p.en} · ${k+1}` : p.en;
+        const cap = caps && caps[k] ? `<span class="cap">${caps[k]}</span>` : '';
+        slots.push(`<div class="shot">`+
+          `<img class="ph-img" src="photos/${sid}.jpg" alt="${ph}" width="1125" height="1500" loading="lazy" decoding="async" `+
+          `onload="this.classList.add('loaded')" onerror="this.classList.add('missing')"/>`+
+          `<div class="ph-empty"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M3 17l5-4 4 3 3-2 6 5"/></svg><span>${ph}</span></div>`+
+          `${cap}</div>`);
+      }
+      const photoBlock = n===0
+        ? `<div class="photo nophoto"><div class="restline"><span class="rest-en">Rest 5–10 minutes</span><span class="rest-tc">停留 5–10 分鐘</span></div></div>`
+        : `<div class="photo" style="grid-template-columns:repeat(${perRow},1fr)">${slots.join('')}</div>`;
+      const ul=`<ul>${p.pts.map(x=>{const [tc,en]=x.split('|');return `<li>${en?`<span class="pt-en">${en}</span>`:''}<span class="pt-tc">${tc}</span></li>`;}).join('')}</ul>`;
+      let note='';
+      if(p.note){const [nen,ntc]=p.note.split('|');note=`<div class="note"><span class="note-en">${nen}</span>${ntc?`<span class="note-tc">${ntc}</span>`:''}</div>`;}
+      const page=document.createElement('div');
+      page.className=`page pose ${cat.cls}`;
+      page.innerHTML=`
+        <div class="pageband">
+          <span class="num">${p.num||poseIndex}</span>
+          <span class="t">${p.en}</span>
+          <span class="tc">${p.tc}</span>
+          <span class="rule"></span>
+          <span class="chip">${p.tag}</span>
+        </div>
+        ${photoBlock}
+        <div class="poseinfo">${ul}${note}</div>
+        <div class="pagefoot">
+          <span>${cat.label}</span>
+          <span class="brand">MUYOGA</span>
+          <span>${poseIndex} / ${TOTAL}</span>
+        </div>`;
+      pagesEl.appendChild(page);
+    });
+  });
+
+  // ── Flow overview ──
+  const flowEl=document.getElementById('flowrow');
+  allPoses.forEach((p,i)=>{
+    const cat=CAT[p.cat];
+    const chip=document.createElement('span');
+    chip.className='fchip';
+    chip.style.background=cat.dot;
+    chip.style.color='var(--ink)';
+    const shortEn=p.en.split('(')[0].trim();
+    chip.innerHTML=`<span class="fn">${p.num||i+1}</span><span class="fchip-txt"><span class="fchip-en">${shortEn}</span><span class="fchip-tc">${p.tc}</span></span>`;
+    flowEl.appendChild(chip);
+    if(i<allPoses.length-1){
+      const a=document.createElement('span'); a.className='farrow'; a.textContent='→';
+      flowEl.appendChild(a);
+    }
+  });
+</script>
+<script>
+  (function(){
+    function fit(){
+      var w=document.documentElement.clientWidth;
+      var s=Math.min(1,(w-16)/1240);
+      document.documentElement.style.setProperty('--fit',s.toFixed(4));
+    }
+    fit();
+    window.addEventListener('resize',fit);
+    window.addEventListener('orientationchange',fit);
+    window.addEventListener('beforeprint',function(){document.documentElement.style.setProperty('--fit','1');});
+    window.addEventListener('afterprint',fit);
+  })();
+</script>
+</body>
+</html>
